@@ -148,7 +148,7 @@ const Quiz: React.FC = () => {
     setLoading(false);
   };
 
-  const calculateResult = (): QuizResult => {
+  const calculateResult = async (): Promise<QuizResult> => {
     setLoading(true);
     try {
       const aiResult = await geminiService.generateCareerRecommendations(answers, language);
