@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, MapPin, Star, Bookmark, BookmarkCheck, ExternalLink, Filter } from 'lucide-react';
+import { Search, MapPin, Star, Bookmark, BookmarkCheck, ExternalLink, ListFilter as Filter } from 'lucide-react';
 import { mockColleges } from '../data/mockData';
 import { useUser } from '../context/UserContext';
 import { College } from '../types';
