@@ -1,11 +1,15 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { translationService, SupportedLanguage, supportedLanguages } from '../services/translationService';
 
-type Language = 'en' | 'hi';
+type Language = SupportedLanguage;
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: (key: string) => string;
+  translateText: (text: string) => Promise<string>;
+  isTranslating: boolean;
+  supportedLanguages: typeof supportedLanguages;
 }
 
 const translations = {
@@ -103,13 +107,35 @@ export const useLanguage = () => {
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>('en');
+  const [isTranslating, setIsTranslating] = useState(false);
 
   const t = (key: string): string => {
     return translations[language][key as keyof typeof translations['en']] || key;
   };
 
+  const translateText = async (text: string): Promise<string> => {
+    if (language === 'en') return text;
+    
+    setIsTranslating(true);
+    try {
+      const translated = await translationService.translateText(text, language);
+      return translated;
+    } catch (error) {
+      console.error('Translation failed:', error);
+      return text;
+    } finally {
+      setIsTranslating(false);
+    }
+  };
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ 
+      language, 
+      setLanguage, 
+      t, 
+      translateText, 
+      isTranslating,
+      supportedLanguages
+    }}>
       {children}
     </LanguageContext.Provider>
   );

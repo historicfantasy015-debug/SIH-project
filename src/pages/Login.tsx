@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserPlus, LogIn } from 'lucide-react';
 import { useUser } from '../context/UserContext';
+import TranslatedText from '../components/TranslatedText';
 
 const Login: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -48,12 +49,16 @@ const Login: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md mx-auto">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            {isSignUp ? 'Create Your Account' : 'Welcome Back'}
-          </h2>
-          <p className="text-gray-600">
-            {isSignUp ? 'Start your career journey today' : 'Continue your career exploration'}
-          </p>
+          <TranslatedText
+            as="h2"
+            text={isSignUp ? 'Create Your Account' : 'Welcome Back'}
+            className="text-3xl font-bold text-gray-900 mb-2"
+          />
+          <TranslatedText
+            as="p"
+            text={isSignUp ? 'Start your career journey today' : 'Continue your career exploration'}
+            className="text-gray-600"
+          />
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-8">
@@ -61,9 +66,11 @@ const Login: React.FC = () => {
             {isSignUp && (
               <>
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                    Full Name
-                  </label>
+                  <TranslatedText
+                    as="label"
+                    text="Full Name"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  />
                   <input
                     type="text"
                     id="name"
@@ -76,26 +83,30 @@ const Login: React.FC = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="class" className="block text-sm font-medium text-gray-700 mb-1">
-                    Current Class
-                  </label>
+                  <TranslatedText
+                    as="label"
+                    text="Current Class"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  />
                   <select
                     id="class"
                     value={formData.class}
                     onChange={(e) => setFormData({ ...formData, class: e.target.value as '10' | '12' })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
-                    <option value="10">Class 10</option>
-                    <option value="12">Class 12</option>
+                    <option value="10"><TranslatedText text="Class 10" /></option>
+                    <option value="12"><TranslatedText text="Class 12" /></option>
                   </select>
                 </div>
               </>
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Email Address
-              </label>
+              <TranslatedText
+                as="label"
+                text="Email Address"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              />
               <input
                 type="email"
                 id="email"
@@ -109,9 +120,11 @@ const Login: React.FC = () => {
 
             {isSignUp && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Areas of Interest (Select multiple)
-                </label>
+                <TranslatedText
+                  as="label"
+                  text="Areas of Interest (Select multiple)"
+                  className="block text-sm font-medium text-gray-700 mb-3"
+                />
                 <div className="grid grid-cols-2 gap-2">
                   {interestOptions.map((interest) => (
                     <label key={interest} className="flex items-center">
@@ -121,7 +134,7 @@ const Login: React.FC = () => {
                         onChange={() => handleInterestChange(interest)}
                         className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       />
-                      <span className="ml-2 text-sm text-gray-700">{interest}</span>
+                      <TranslatedText text={interest} className="ml-2 text-sm text-gray-700" />
                     </label>
                   ))}
                 </div>
@@ -135,12 +148,12 @@ const Login: React.FC = () => {
               {isSignUp ? (
                 <>
                   <UserPlus className="h-5 w-5" />
-                  <span>Create Account</span>
+                  <TranslatedText text="Create Account" />
                 </>
               ) : (
                 <>
                   <LogIn className="h-5 w-5" />
-                  <span>Sign In</span>
+                  <TranslatedText text="Sign In" />
                 </>
               )}
             </button>
@@ -152,7 +165,7 @@ const Login: React.FC = () => {
               onClick={() => setIsSignUp(!isSignUp)}
               className="text-blue-600 hover:text-blue-500 text-sm font-medium"
             >
-              {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
+              <TranslatedText text={isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"} />
             </button>
           </div>
         </div>

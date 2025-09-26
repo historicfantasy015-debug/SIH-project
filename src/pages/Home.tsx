@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, Users, MapPin, Calendar, TrendingUp, Award } from 'lucide-react';
+import TranslatedText from '../components/TranslatedText';
 
 const Home: React.FC = () => {
   const features = [
@@ -50,25 +51,28 @@ const Home: React.FC = () => {
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              Your Future Starts with the
-              <span className="text-yellow-400"> Right Choice</span>
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto">
-              Personalized career guidance for Class 10 & 12 students. Discover your path through government colleges and build your dream career.
-            </p>
+            <TranslatedText
+              as="h1"
+              text="Your Future Starts with the Right Choice"
+              className="text-5xl md:text-6xl font-bold mb-6 leading-tight"
+            />
+            <TranslatedText
+              as="p"
+              text="Personalized career guidance for Class 10 & 12 students. Discover your path through government colleges and build your dream career."
+              className="text-xl md:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto"
+            />
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/quiz"
                 className="bg-yellow-400 text-blue-900 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-yellow-300 transition-all duration-300 transform hover:scale-105"
               >
-                Take Aptitude Quiz
+                <TranslatedText text="Take Aptitude Quiz" />
               </Link>
               <Link
                 to="/colleges"
                 className="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-blue-900 transition-all duration-300"
               >
-                Explore Colleges
+                <TranslatedText text="Explore Colleges" />
               </Link>
             </div>
           </div>
@@ -93,12 +97,16 @@ const Home: React.FC = () => {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Everything You Need for Career Success
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Our comprehensive platform provides all the tools and guidance you need to make informed decisions about your future.
-            </p>
+            <TranslatedText
+              as="h2"
+              text="Everything You Need for Career Success"
+              className="text-4xl font-bold text-gray-900 mb-4"
+            />
+            <TranslatedText
+              as="p"
+              text="Our comprehensive platform provides all the tools and guidance you need to make informed decisions about your future."
+              className="text-xl text-gray-600 max-w-2xl mx-auto"
+            />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -110,8 +118,16 @@ const Home: React.FC = () => {
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                   <feature.icon className="h-8 w-8 text-blue-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                <TranslatedText
+                  as="h3"
+                  text={feature.title}
+                  className="text-xl font-semibold text-gray-900 mb-3"
+                />
+                <TranslatedText
+                  as="p"
+                  text={feature.description}
+                  className="text-gray-600 leading-relaxed"
+                />
               </div>
             ))}
           </div>
@@ -121,15 +137,21 @@ const Home: React.FC = () => {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-green-600 to-blue-600 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Discover Your Path?</h2>
-          <p className="text-xl mb-8 opacity-90">
-            Join thousands of students who have found their perfect career match through our platform.
-          </p>
+          <TranslatedText
+            as="h2"
+            text="Ready to Discover Your Path?"
+            className="text-4xl font-bold mb-6"
+          />
+          <TranslatedText
+            as="p"
+            text="Join thousands of students who have found their perfect career match through our platform."
+            className="text-xl mb-8 opacity-90"
+          />
           <Link
             to="/login"
             className="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
           >
-            Get Started Today
+            <TranslatedText text="Get Started Today" />
           </Link>
         </div>
       </section>

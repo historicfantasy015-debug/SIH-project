@@ -5,6 +5,7 @@ import { useUser } from '../context/UserContext';
 import { useLanguage } from '../context/LanguageContext';
 import { geminiService } from '../services/geminiService';
 import { QuizResult } from '../types';
+import TranslatedText from '../components/TranslatedText';
 
 interface AIQuestion {
   id: number;
@@ -239,33 +240,38 @@ const Quiz: React.FC = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">{t('quiz.title')}</h1>
-          <p className="text-xl text-gray-600 mb-8">
-            {language === 'hi' 
-              ? 'हमारी AI-संचालित करियर मूल्यांकन परीक्षा आपके लिए सबसे उपयुक्त शैक्षणिक धारा और करियर पथ खोजने में मदद करेगी।'
-              : 'Our AI-powered career assessment will help you discover the most suitable academic stream and career path for you.'
-            }
-          </p>
+          <TranslatedText
+            as="h1"
+            text="Career Aptitude Quiz"
+            className="text-4xl font-bold text-gray-900 mb-4"
+          />
+          <TranslatedText
+            as="p"
+            text="Our AI-powered career assessment will help you discover the most suitable academic stream and career path for you."
+            className="text-xl text-gray-600 mb-8"
+          />
           <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-              {language === 'hi' ? 'परीक्षा की विशेषताएं:' : 'Quiz Features:'}
-            </h2>
+            <TranslatedText
+              as="h2"
+              text="Quiz Features:"
+              className="text-2xl font-semibold text-gray-900 mb-4"
+            />
             <ul className="text-left space-y-3 text-gray-700">
               <li className="flex items-center">
                 <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                {language === 'hi' ? 'AI-संचालित व्यक्तिगत प्रश्न' : 'AI-powered personalized questions'}
+                <TranslatedText text="AI-powered personalized questions" />
               </li>
               <li className="flex items-center">
                 <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                {language === 'hi' ? 'स्थान प्राथमिकताओं का मूल्यांकन' : 'Location preference assessment'}
+                <TranslatedText text="Location preference assessment" />
               </li>
               <li className="flex items-center">
                 <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                {language === 'hi' ? 'कोर्स बनाम कॉलेज प्राथमिकता विश्लेषण' : 'Course vs college preference analysis'}
+                <TranslatedText text="Course vs college preference analysis" />
               </li>
               <li className="flex items-center">
                 <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                {language === 'hi' ? 'विस्तृत करियर सिफारिशें' : 'Detailed career recommendations'}
+                <TranslatedText text="Detailed career recommendations" />
               </li>
             </ul>
           </div>
@@ -274,7 +280,7 @@ const Quiz: React.FC = () => {
             disabled={loading}
             className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors duration-200 disabled:opacity-50"
           >
-            {loading ? t('common.loading') : (language === 'hi' ? 'परीक्षा शुरू करें' : 'Start Quiz')}
+            {loading ? <TranslatedText text="Loading..." /> : <TranslatedText text="Start Quiz" />}
           </button>
         </div>
       </div>
@@ -287,8 +293,16 @@ const Quiz: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">{t('quiz.complete')}</h1>
-            <p className="text-xl text-gray-600">{t('quiz.results')}</p>
+           <TranslatedText
+             as="h1"
+             text="Quiz Complete!"
+             className="text-4xl font-bold text-gray-900 mb-2"
+           />
+           <TranslatedText
+             as="p"
+             text="Here are your personalized results"
+             className="text-xl text-gray-600"
+           />
           </div>
 
           <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
@@ -296,41 +310,46 @@ const Quiz: React.FC = () => {
               <div className="inline-flex items-center justify-center w-32 h-32 bg-gradient-to-r from-blue-500 to-green-500 rounded-full mb-4">
                 <span className="text-4xl font-bold text-white">{result.score}%</span>
               </div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                {language === 'hi' ? 'अनुशंसित धारा:' : 'Recommended Stream:'} <span className="text-blue-600">{result.stream}</span>
-              </h2>
-              <p className="text-lg text-gray-600">
-                {language === 'hi' 
-                  ? 'आपके उत्तरों के आधार पर, यह धारा आपकी रुचियों और शक्तियों के साथ सबसे अच्छी तरह मेल खाती है।'
-                  : 'Based on your responses, this stream aligns best with your interests and strengths.'
-                }
-              </p>
+             <TranslatedText
+               as="h2"
+               text={`Recommended Stream: ${result.stream}`}
+               className="text-3xl font-bold text-gray-900 mb-2"
+             />
+             <TranslatedText
+               as="p"
+               text="Based on your responses, this stream aligns best with your interests and strengths."
+               className="text-lg text-gray-600"
+             />
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  {language === 'hi' ? 'आपकी शक्तियां' : 'Your Strengths'}
-                </h3>
+               <TranslatedText
+                 as="h3"
+                 text="Your Strengths"
+                 className="text-xl font-semibold text-gray-900 mb-4"
+               />
                 <ul className="space-y-2">
                   {result.strengths.map((strength, index) => (
                     <li key={index} className="flex items-center space-x-2">
                       <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                      <span className="text-gray-700">{strength}</span>
+                     <TranslatedText text={strength} className="text-gray-700" />
                     </li>
                   ))}
                 </ul>
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  {language === 'hi' ? 'सिफारिशें' : 'Recommendations'}
-                </h3>
+               <TranslatedText
+                 as="h3"
+                 text="Recommendations"
+                 className="text-xl font-semibold text-gray-900 mb-4"
+               />
                 <ul className="space-y-2">
                   {result.recommendations.map((rec, index) => (
                     <li key={index} className="flex items-start space-x-2">
                       <ArrowRight className="h-5 w-5 text-blue-500 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-700">{rec}</span>
+                     <TranslatedText text={rec} className="text-gray-700" />
                     </li>
                   ))}
                 </ul>
@@ -343,21 +362,21 @@ const Quiz: React.FC = () => {
               onClick={() => navigate('/careers')}
               className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center space-x-2"
             >
-              <span>{t('quiz.explorecareers')}</span>
+              <TranslatedText text="Explore Career Paths" />
               <ArrowRight className="h-5 w-5" />
             </button>
             <button
               onClick={() => navigate('/colleges')}
               className="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors duration-200"
             >
-              {t('quiz.findcolleges')}
+              <TranslatedText text="Find Colleges" />
             </button>
             <button
               onClick={resetQuiz}
               className="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors duration-200 flex items-center justify-center space-x-2"
             >
               <RotateCcw className="h-5 w-5" />
-              <span>{t('quiz.retake')}</span>
+              <TranslatedText text="Retake Quiz" />
             </button>
           </div>
         </div>
@@ -370,7 +389,7 @@ const Quiz: React.FC = () => {
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-lg text-gray-600">{t('common.loading')}</p>
+          <TranslatedText text="Loading..." className="text-lg text-gray-600" />
         </div>
       </div>
     );
@@ -393,10 +412,16 @@ const Quiz: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">{t('quiz.title')}</h1>
-          <p className="text-lg text-gray-600 mb-6">
-            {t('quiz.subtitle')}
-          </p>
+          <TranslatedText
+            as="h1"
+            text="Career Aptitude Quiz"
+            className="text-4xl font-bold text-gray-900 mb-4"
+          />
+          <TranslatedText
+            as="p"
+            text="Answer these questions honestly to discover the best academic stream for you"
+            className="text-lg text-gray-600 mb-6"
+          />
           
           {/* Progress Bar */}
           <div className="w-full bg-gray-200 rounded-full h-3 mb-4">
@@ -406,14 +431,16 @@ const Quiz: React.FC = () => {
             ></div>
           </div>
           <p className="text-sm text-gray-500">
-            {language === 'hi' ? 'प्रश्न' : 'Question'} {currentQuestion + 1} {language === 'hi' ? 'का' : 'of'} {Math.min(15, questions.length + 5)}
+            <TranslatedText text="Question" /> {currentQuestion + 1} <TranslatedText text="of" /> {Math.min(15, questions.length + 5)}
           </p>
         </div>
 
         <div className="bg-white rounded-xl shadow-lg p-8">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-8 text-center">
-            {question.question}
-          </h2>
+          <TranslatedText
+            as="h2"
+            text={question.question}
+            className="text-2xl font-semibold text-gray-900 mb-8 text-center"
+          />
 
           <div className="grid gap-4">
             {question.options.map((option, index) => (
@@ -427,7 +454,7 @@ const Quiz: React.FC = () => {
                   <div className="w-6 h-6 border-2 border-gray-300 rounded-full flex items-center justify-center">
                     <div className="w-3 h-3 bg-blue-500 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-200"></div>
                   </div>
-                  <span className="text-gray-800 font-medium">{option.text}</span>
+                  <TranslatedText text={option.text} className="text-gray-800 font-medium" />
                 </div>
               </button>
             ))}
